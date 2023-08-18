@@ -149,6 +149,44 @@ class Professor:
     def __eq__(self, other):
         return (self.name, self.department, self.school) == (other.name, other.department, other.school)
 
+class PartialProfessor:
+    """
+    Represents a professor that is missing full rating informatiion.
+
+    A `PartialProfessor` can be converted into a `Professor` by calling `to_professor()`.
+    """
+
+    def __init__(self, professor_data: dict):
+        self.id = professor_data["legacyId"]
+        
+        self.name = professor_data["firstName"] + ' ' + professor_data["lastName"]
+        self.department = professor_data["department"]
+        self.difficulty = professor_data["avgDifficulty"]
+        self.rating = professor_data["avgRating"]
+        if professor_data["wouldTakeAgainPercent"] == 0:
+            self.would_take_again = None
+        else:
+            self.would_take_again = professor_data["wouldTakeAgainPercent"]
+        self.num_ratings = professor_data["numRatings"]
+        self.school = School(int(base64.b64decode(
+            professor_data["school"]["__ref"].encode('ascii')).decode('ascii')[7:]))
+
+    def to_professor(self):
+        """
+        Converts the `PartialProfessor` object into a `Professor` object.
+        """
+
+        return Professor(self.id)
+
+    def __repr__(self):
+        return self.name
+
+    def __lt__(self, other):
+        return self.num_ratings < other.num_ratings
+
+    def __eq__(self, other):
+        return (self.name, self.department, self.school) == (other.name, other.department, other.school)
+
 
 class Course:
     """Represents a course."""
