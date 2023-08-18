@@ -1,1 +1,3 @@
 /.pypirc
+.DS_Store
+.gitignore
