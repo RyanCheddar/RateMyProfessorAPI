@@ -165,6 +165,6 @@ def fast_get_professors_by_school_and_name(college: School, professor_name: str)
     professor_list = []
 
     for professor_data in professor_dict_list:
-        professor_list.append(PartialProfessor([x for x in professor_data if "legacyId" in x][0]))
+        professor_list.append(PartialProfessor([x for x in professor_data.values() if "legacyId" in x][0]))
 
     return professor_list
