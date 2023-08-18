@@ -28,3 +28,25 @@ class School:
 
     def __eq__(self, other):
         return (self.name, self.id) == (other.name, other.id)
+    
+class PartialSchool:
+    """
+    Represents a school without name data. Used by `PartialProfessor`.
+    
+    Can be converted to a `School` object with `to_school`.
+    """
+
+    def __init__(self, school_id: int):
+        """
+        Initializes a school to the school id.
+
+        :param school_id: The school's id.
+        """
+
+        self.id = school_id
+
+    def to_school(self):
+        return School(self.id)
+
+    def __eq__(self, other):
+        return self.id == other.id

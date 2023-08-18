@@ -6,7 +6,7 @@ import datetime
 from bs4 import BeautifulSoup
 
 from functools import total_ordering
-from .school import School
+from .school import School, PartialSchool
 
 current_path = os.path.dirname(__file__)
 with open(os.path.join(current_path, "json/ratingsquery.json"), 'r') as f:
@@ -169,7 +169,7 @@ class PartialProfessor:
         else:
             self.would_take_again = professor_data["wouldTakeAgainPercent"]
         self.num_ratings = professor_data["numRatings"]
-        self.school = School(int(base64.b64decode(
+        self.school = PartialSchool(int(base64.b64decode(
             professor_data["school"]["__ref"].encode('ascii')).decode('ascii')[7:]))
 
     def to_professor(self):

@@ -14,7 +14,7 @@ import base64
 import os
 
 from .professor import Professor, PartialProfessor
-from .school import School
+from .school import School, PartialSchool
 
 
 with open(os.path.join(os.path.dirname(__file__), "json/header.json"), 'r') as f:
