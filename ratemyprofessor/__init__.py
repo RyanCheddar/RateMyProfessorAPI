@@ -181,10 +181,10 @@ def fast_get_first_professor_by_school_and_name(college: School | PartialSchool,
 		
     professors = fast_get_professors_by_school_and_name(college, professor_name)
 
-	if len(professors) > 0:
-		return professors[0]
-	else:
-    	return None
+    if len(professors) > 0:
+        return professors[0]
+    else:
+        return None
 
 
 def fast_get_professors_by_school_and_name(college: School | PartialSchool, professor_name: str):
