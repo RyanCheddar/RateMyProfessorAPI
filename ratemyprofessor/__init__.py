@@ -113,3 +113,58 @@ def get_professors_by_school_and_name(college: School, professor_name: str):
             pass
 
     return professor_list
+
+
+
+def fast_get_professor_by_school_and_name(college: School, professor_name: str):
+    """
+    Quickly gets a `PartialProfessor` with the specified School and professor name.
+
+    `PartialProfessor`s can be converted into `Professor` objects with `to_professor()`.
+
+    This only returns 1 professor, so make sure that the name is specific.
+    This returns the professor with the most ratings.
+    For instance, searching "Smith" using the School of Case Western Reserve University will return 5 results,
+    but only one result will be returned.
+
+    :param college: The professor's school.
+    :param professor_name: The professor's name.
+    :return: The `PartialProfessor` that matches the school and name. If no professors are found, this will return None.
+    """
+    professors = fast_get_professors_by_school_and_name(college, professor_name)
+    max_professor = None
+
+    for prof in professors:
+        if max_professor is None or max_professor.num_ratings < prof.num_ratings:
+            max_professor = prof
+
+    return max_professor
+
+
+def fast_get_professors_by_school_and_name(college: School, professor_name: str):
+    """
+    Quickly gets a list of `PartialProfessor`s with the specified School and professor name.
+
+    `PartialProfessor`s can be converted into `Professor` objects with `to_professor()`.
+
+    This only returns up to 20 professors, so make sure that the name is specific.
+    For instance, searching "Smith" with a school might return more than 20 professors,
+    but only the first 20 will be returned.
+
+    :param college: The professor's school.
+    :param professor_name: The professor's name.
+    :return: List of `PartialProfessor`s that match the school and name. If no professors are found,
+             this will return an empty list.
+    """
+    # professor_name.replace(' ', '+')
+    url = 'https://www.ratemyprofessors.com/search/professors/%s?q=%s' % (college.id, professor_name)
+    page = requests.get(url)
+    data = re.findall(r'"__typename":"TeacherSearchConnectionEdge.+?(?=,"client:root:newSearch:teachers)', page.text)
+    
+    professor_dict_list = [json.loads('{"null": {' + x + '}') for x in data]
+    professor_list = []
+
+    for professor_data in professor_dict_list:
+        professor_list.append(PartialProfessor([x for x in professor_data if "legacyId" in x][0]))
+
+    return professor_list
