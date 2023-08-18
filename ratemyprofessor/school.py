@@ -31,14 +31,14 @@ class School:
     
 class PartialSchool:
     """
-    Represents a school without name data. Used by `PartialProfessor`.
+    Represents a school with only its ID. Used by `PartialProfessor`.
     
     Can be converted to a `School` object with `to_school`.
     """
 
     def __init__(self, school_id: int):
         """
-        Initializes a school to the school id.
+        Initializes a `PartialSchool` to the school id.
 
         :param school_id: The school's id.
         """
