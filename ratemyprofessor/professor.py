@@ -149,6 +149,7 @@ class Professor:
     def __eq__(self, other):
         return (self.name, self.department, self.school) == (other.name, other.department, other.school)
 
+@total_ordering
 class PartialProfessor:
     """
     Represents a professor that is missing full rating informatiion.
