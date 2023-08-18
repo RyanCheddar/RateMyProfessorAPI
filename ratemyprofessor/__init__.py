@@ -14,6 +14,7 @@ import base64
 import os
 
 from .professor import Professor
+from .professor import PartialProfessor
 from .school import School
 
 
