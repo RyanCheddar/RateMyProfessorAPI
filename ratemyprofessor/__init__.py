@@ -86,7 +86,7 @@ def get_professor_by_school_and_name(college: School | PartialSchool, professor_
 
     return max_professor
 
-def get_first_professor_by_school_and_name(college: School, professor_name: str):
+def get_first_professor_by_school_and_name(college: School | PartialSchool, professor_name: str):
     """
     Gets a Professor with the specified School and professor name.
 		
@@ -167,6 +167,24 @@ def fast_get_professor_by_school_and_name(college: School | PartialSchool, profe
             max_professor = prof
 
     return max_professor
+
+def fast_get_first_professor_by_school_and_name(college: School | PartialSchool, professor_name: str):
+    """
+    Quickly gets a `PartialProfessor` with the specified School and professor name.
+
+    This function just calls `fast_get_professors_by_school_and_name` and returns the first result.
+		
+    :param college: The professor's school.
+    :param professor_name: The professor's name.
+    :return: The professor that matches the school and name. If no professors are found, this will return None.
+    """
+		
+    professors = fast_get_professors_by_school_and_name(college, professor_name)
+
+	if len(professors) > 0:
+		return professors[0]
+	else:
+    	return None
 
 
 def fast_get_professors_by_school_and_name(college: School | PartialSchool, professor_name: str):
