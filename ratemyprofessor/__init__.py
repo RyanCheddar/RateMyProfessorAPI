@@ -13,8 +13,7 @@ import json
 import base64
 import os
 
-from .professor import Professor
-from .professor import PartialProfessor
+from .professor import Professor, PartialProfessor
 from .school import School
 
 
